@@ -12,4 +12,12 @@
     <ProjectReference Include="..\SchoolProject.Service\SchoolProject.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Students\Handlers\" />
+    <Folder Include="Features\Students\Commands\" />
+    <Folder Include="Features\Students\Quieres\" />
+    <Folder Include="Features\Students\Validations\" />
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
 </Project>

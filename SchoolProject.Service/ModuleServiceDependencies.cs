@@ -8,7 +8,7 @@ namespace SchoolProject.Service
 {
 	public static class ModuleServiceDependencies
 	{
-		public static IServiceCollection AddInfrustructureDependencies(this IServiceCollection services)
+		public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
 		{
 			services.AddTransient<IStudentServies, StudentService>();
 			return services;
