@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SchoolProject.Infrustructure.Abstraction;
 using SchoolProject.Infrustructure.Database;
+using SchoolProject.Infrustructure;
+using SchoolProject.Service;
+using SchoolProject.Infrustructure.Repesiratories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +13,21 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 //Connection SQL
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
 	option.UseSqlServer(builder.Configuration.GetConnectionString("dbcontext"));
 });
+
+
+//Dependancy Injection
+
+builder.Services.AddInfrustructureDependencies();
+builder.Services.AddServiceDependencies();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
