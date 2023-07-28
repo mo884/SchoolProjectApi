@@ -23,4 +23,5 @@ namespace SchoolProject.Data.Entites
 		{
 			get; set;
 		}
+	}
 }
