@@ -3,6 +3,7 @@ using SchoolProject.Infrustructure.Abstraction;
 using SchoolProject.Infrustructure.Database;
 using SchoolProject.Infrustructure;
 using SchoolProject.Service;
+using SchoolProject.Core;
 using SchoolProject.Infrustructure.Repesiratories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +26,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 builder.Services.AddInfrustructureDependencies();
 builder.Services.AddServiceDependencies();
-
+builder.Services.AddCoreDependencie();
 
 
 var app = builder.Build();
