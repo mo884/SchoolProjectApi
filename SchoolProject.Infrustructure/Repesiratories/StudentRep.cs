@@ -2,6 +2,7 @@
 using SchoolProject.Data.Entites;
 using SchoolProject.Infrustructure.Abstraction;
 using SchoolProject.Infrustructure.Database;
+using SchoolProject.Infrustructure.Infrustructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Infrustructure.Repesiratories
 {
-	public class StudentRep : IStudentRep
+	public class StudentRep : GenericRepositoryAsync<Student>, IStudentRep
 	{
 		#region Fields
 		private readonly ApplicationDbContext dbContext;
@@ -19,7 +20,7 @@ namespace SchoolProject.Infrustructure.Repesiratories
 
 
 		#region Constructor
-		public StudentRep(ApplicationDbContext dbContext)
+		public StudentRep(ApplicationDbContext dbContext) :base(dbContext)
         {
 			this.dbContext = dbContext;
 		}
