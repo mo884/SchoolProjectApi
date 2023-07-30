@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 {
-	public class StudentHandlers : ResponseHandler,IRequestHandler<GetStudentListQuerey,Response<List<GetStudentListResponse>>>
+	public class StudentHandlers : ResponseHandler
+		,IRequestHandler<GetStudentListQuerey,Response<List<GetStudentListResponse>>>
+		, IRequestHandler<GetStudentByIdQuerey, Response<GetStudentByIDResponse>>
 	{
 		#region Fieldes
 		private readonly IStudentServies studentServies;
@@ -26,16 +28,26 @@ namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 			this.studentServies = studentServies;
 			this.mapper = mapper;
 		}
-        #endregion
+		#endregion
 
-        #region Handles  Function
-        #endregion
-        public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentListQuerey request, CancellationToken cancellationToken)
+		#region Handles  Function
+		public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentListQuerey request, CancellationToken cancellationToken)
 		{
 
 			var studentList = await studentServies.GetStudentsListAsync();
 			var studentListMapper = mapper.Map<List<GetStudentListResponse>>(studentList);
-			return Success( studentListMapper);
+			return Success(studentListMapper);
 		}
+
+		public async Task<Response<GetStudentByIDResponse>> Handle(GetStudentByIdQuerey request, CancellationToken cancellationToken)
+		{
+
+			var student = await studentServies.GetStudentByIdAsync(request.Id);
+			if (student == null) return NotFound<GetStudentByIDResponse>("Object not found");
+			var studentMapper = mapper.Map<GetStudentByIDResponse>(student);
+			return Success(studentMapper);
+		}
+		#endregion
+
 	}
 }

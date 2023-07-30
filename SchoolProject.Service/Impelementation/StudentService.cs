@@ -1,4 +1,5 @@
-﻿using SchoolProject.Data.Entites;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolProject.Data.Entites;
 using SchoolProject.Infrustructure.Abstraction;
 using SchoolProject.Service.Abstract;
 using System;
@@ -22,6 +23,7 @@ namespace SchoolProject.Service.Impelementation
 			this.studentRep = studentRep;
 		}
 
+		
 
 		#endregion
 
@@ -30,6 +32,16 @@ namespace SchoolProject.Service.Impelementation
 		{
 			return await studentRep.GetStudentsListAsync();
 		}
+		//Get Student By ID 
+		public async Task<Student> GetStudentByIdAsync(int id)
+		{
+			var student = await studentRep.GetTableNoTracking()
+				.Include(a=>a.Department)
+				.Where(filter=>filter.StudID == id)
+				.FirstOrDefaultAsync();
+			return student;
+		}
+
 		#endregion
 	}
 }
