@@ -57,5 +57,22 @@ namespace SchoolProject.Api.Controllers
 			
 		}
 		#endregion
+		#region Edit Student 
+		[HttpPut(Router.StudentRouting.Edit)]
+		public async Task<IActionResult> EditStudent([FromBody] EditeStudentCommands student )
+		{
+			if (ModelState.IsValid)
+			{
+				var response = await mediator.Send(student);
+				return Ok(response);
+
+			}
+			else
+			{
+				return BadRequest();
+			}
+
+		}
+		#endregion
 	}
 }

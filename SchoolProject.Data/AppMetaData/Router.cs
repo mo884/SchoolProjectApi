@@ -18,6 +18,7 @@ namespace SchoolProject.Data.AppMetaData
 			public const string List = perfix + "/List";
 			public const string GetById = perfix + "/{id}";
 			public const string Create = perfix + "/Create";
+			public const string Edit = perfix + "/Edit";
 		}
 	}
 }

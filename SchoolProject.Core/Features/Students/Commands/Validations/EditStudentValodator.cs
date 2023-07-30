@@ -1,26 +1,23 @@
 ﻿using FluentValidation;
 using SchoolProject.Core.Features.Students.Commands.Models;
 
+
 namespace SchoolProject.Core.Features.Students.Commands.Validations
 {
-	public class AddStudentValidator :AbstractValidator<AddStudentCommands>
+	public class EditStudentValodator : AbstractValidator<EditeStudentCommands>
 	{
-		#region Fileds
-
-		#endregion
-
 		#region Constructor
-		public AddStudentValidator()
+		public EditStudentValodator()
 		{
 			ApplyValidationRules();
-			ApplyCustomRules();
+			
 		}
 		#endregion
 
 		#region Handels Method
 		public void ApplyValidationRules()
 		{
-			RuleFor(x=>x.Name)
+			RuleFor(x => x.Name)
 				.NotEmpty().WithMessage("Name must not Empty !")
 				.NotNull().WithMessage("Name must not null ")
 				.MaximumLength(20).WithMessage("Name Max Length 20 ")
@@ -32,12 +29,6 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
 				.MaximumLength(40).WithMessage("Adress Max Length 40 ")
 				.MinimumLength(3).WithMessage("Adress  Min Length 3  ");
 		}
-
-		public void ApplyCustomRules()
-		{ 
-
-		}
-			#endregion
-
-		}
+		#endregion
+	}
 }

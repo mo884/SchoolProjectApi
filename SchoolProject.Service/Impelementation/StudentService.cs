@@ -51,8 +51,23 @@ namespace SchoolProject.Service.Impelementation
 				.FirstOrDefaultAsync();
 
 
-			if (IsFound != null) return "not sucesses due the name is Exist";
+			if (IsFound == null) return "not sucesses due the name is Exist";
 			return null;
+		}
+
+		public async Task<string> EditeStudentAsync(Student student)
+		{
+			try
+			{
+				await studentRep.UpdateAsync(student);
+				return null;
+
+			}
+			catch (Exception)
+			{
+
+				return "not success";
+			}
 		}
 
 		#endregion
