@@ -42,6 +42,19 @@ namespace SchoolProject.Service.Impelementation
 			return student;
 		}
 
+		public async Task<string> CreateStudentAsync(Student student)
+		{
+			await studentRep.AddAsync(student);
+			var IsFound = await studentRep.GetTableNoTracking()
+
+				.Where(filter => filter.Name == student.Name)
+				.FirstOrDefaultAsync();
+
+
+			if (IsFound == null) return "not sucesses";
+			return null;
+		}
+
 		#endregion
 	}
 }

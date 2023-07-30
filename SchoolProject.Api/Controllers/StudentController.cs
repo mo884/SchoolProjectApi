@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Core.Features.Students.Commands.Models;
 using SchoolProject.Core.Features.Students.Quieres.Models;
 using SchoolProject.Data.AppMetaData;
 
@@ -37,6 +38,23 @@ namespace SchoolProject.Api.Controllers
 		{
 			var response = await mediator.Send(new GetStudentByIdQuerey(id));
 			return Ok(response);
+		}
+		#endregion
+		#region Create Student 
+		[HttpPost]
+		public async Task<IActionResult> CreateStudent([FromBody] AddStudentCommands student)
+		{
+			if(ModelState.IsValid)
+			{
+				var response = await mediator.Send(student);
+				return Ok(response);
+
+			}
+			else
+			{
+				return BadRequest();
+			}
+			
 		}
 		#endregion
 	}
