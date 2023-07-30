@@ -70,6 +70,21 @@ namespace SchoolProject.Service.Impelementation
 			}
 		}
 
+		public async Task<string> DeleteStudentAsync(Student student)
+		{
+			try
+			{
+				await studentRep.DeleteAsync(student);
+				return null;
+
+			}
+			catch (Exception)
+			{
+
+				return "not success";
+			}
+		}
+
 		#endregion
 	}
 }

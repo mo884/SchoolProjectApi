@@ -74,5 +74,22 @@ namespace SchoolProject.Api.Controllers
 
 		}
 		#endregion
+		#region Edit Student 
+		[HttpPost(Router.StudentRouting.Delete)]
+		public async Task<IActionResult> DeleteStudent( int id)
+		{
+			if (ModelState.IsValid)
+			{
+				var response = await mediator.Send(new DeleteStudentCommands() {Id = id });
+				return Ok(response);
+
+			}
+			else
+			{
+				return BadRequest();
+			}
+
+		}
+		#endregion
 	}
 }
