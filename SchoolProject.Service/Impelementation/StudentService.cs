@@ -51,7 +51,7 @@ namespace SchoolProject.Service.Impelementation
 				.FirstOrDefaultAsync();
 
 
-			if (IsFound == null) return "not sucesses";
+			if (IsFound != null) return "not sucesses due the name is Exist";
 			return null;
 		}
 

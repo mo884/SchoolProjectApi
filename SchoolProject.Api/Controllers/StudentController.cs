@@ -41,7 +41,7 @@ namespace SchoolProject.Api.Controllers
 		}
 		#endregion
 		#region Create Student 
-		[HttpPost]
+		[HttpPost(Router.StudentRouting.Create)]
 		public async Task<IActionResult> CreateStudent([FromBody] AddStudentCommands student)
 		{
 			if(ModelState.IsValid)
