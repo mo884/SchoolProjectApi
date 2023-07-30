@@ -29,7 +29,7 @@ namespace SchoolProject.Infrustructure.Repesiratories
 		#region Handles Functions
 		public async Task<List<Student>> GetStudentsListAsync()
 		{
-			var Students = await dbContext.Students.ToListAsync();
+			var Students = await dbContext.Students.Include(opt=>opt.Department).ToListAsync();
 			return Students;
 		}
 		#endregion
