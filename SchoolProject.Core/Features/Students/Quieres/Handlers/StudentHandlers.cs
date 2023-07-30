@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Students.Quieres.Models;
 using SchoolProject.Core.Features.Students.Quieres.Response;
 using SchoolProject.Data.Entites;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 {
-	public class StudentHandlers : IRequestHandler<GetStudentListQuerey, List<GetStudentListResponse>>
+	public class StudentHandlers : ResponseHandler,IRequestHandler<GetStudentListQuerey,Response<List<GetStudentListResponse>>>
 	{
 		#region Fieldes
 		private readonly IStudentServies studentServies;
@@ -29,12 +30,12 @@ namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 
         #region Handles  Function
         #endregion
-        public async Task<List<GetStudentListResponse>> Handle(GetStudentListQuerey request, CancellationToken cancellationToken)
+        public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentListQuerey request, CancellationToken cancellationToken)
 		{
 
 			var studentList = await studentServies.GetStudentsListAsync();
 			var studentListMapper = mapper.Map<List<GetStudentListResponse>>(studentList);
-			return studentListMapper;
+			return Success( studentListMapper);
 		}
 	}
 }
