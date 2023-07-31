@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Service.Impelementation
 {
-	public class StudentService : IStudentServies
+	public class StudentService : IDepartmentServies
 	{
 		#region Fieldes
 		private readonly IStudentRep studentRep;

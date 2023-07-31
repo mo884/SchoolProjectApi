@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Service.Abstract
 {
-	public interface IStudentServies
+	public interface IDepartmentServies
 	{
 		public Task<List<Student>> GetStudentsListAsync();
 		public Task<Student> GetStudentByIdAsync(int id);

@@ -23,13 +23,13 @@ namespace SchoolProject.Core.Features.Students.Commands.Handlers
 		, IRequestHandler<DeleteStudentCommands, Response<string>>
 	{
 		#region Fieldes
-		private readonly IStudentServies studentServies;
+		private readonly IDepartmentServies studentServies;
 		private readonly IMapper mapper;
 		private readonly IStringLocalizer<SharedResources> stringLocalizer;
 		#endregion
 
 		#region Constructor
-		public StudentCommandsHandler(IStudentServies studentServies, IMapper mapper, IStringLocalizer<SharedResources> stringLocalizer)
+		public StudentCommandsHandler(IDepartmentServies studentServies, IMapper mapper, IStringLocalizer<SharedResources> stringLocalizer)
 		{
 			this.studentServies = studentServies;
 			this.mapper = mapper;

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Students.Quieres.Models;
 using SchoolProject.Core.Features.Students.Quieres.Response;
+using SchoolProject.Core.SharedResource;
 using SchoolProject.Data.Entites;
 using SchoolProject.Service.Abstract;
 using System;
@@ -18,15 +20,17 @@ namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 		, IRequestHandler<GetStudentByIdQuerey, Response<GetStudentByIDResponse>>
 	{
 		#region Fieldes
-		private readonly IStudentServies studentServies;
+		private readonly IDepartmentServies studentServies;
 		private readonly IMapper mapper;
+		private readonly IStringLocalizer<SharedResources> stringLocalizer;
 		#endregion
 
 		#region Constructor
-		public StudentHandlers(IStudentServies studentServies, IMapper mapper)
+		public StudentHandlers(IDepartmentServies studentServies, IMapper mapper, IStringLocalizer<SharedResources> stringLocalizer)
         {
 			this.studentServies = studentServies;
 			this.mapper = mapper;
+			this.stringLocalizer = stringLocalizer;
 		}
 		#endregion
 
@@ -43,7 +47,7 @@ namespace SchoolProject.Core.Features.Students.Quieres.Handlers
 		{
 
 			var student = await studentServies.GetStudentByIdAsync(request.Id);
-			if (student == null) return NotFound<GetStudentByIDResponse>("Object not found");
+			if (student == null) return NotFound<GetStudentByIDResponse>(stringLocalizer[SharedResourceKey.StudentNotFound]);
 			var studentMapper = mapper.Map<GetStudentByIDResponse>(student);
 			return Success(studentMapper);
 		}
