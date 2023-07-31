@@ -5,6 +5,8 @@ using SchoolProject.Infrustructure;
 using SchoolProject.Service;
 using SchoolProject.Core;
 using SchoolProject.Infrustructure.Repesiratories;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,21 +17,45 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Connection SQL
+
+#region Connection SQL
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
 	option.UseSqlServer(builder.Configuration.GetConnectionString("dbcontext"));
 });
 
+#endregion
 
-//Dependancy Injection
 
+#region Dependancy Injection
 builder.Services.AddInfrustructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencie();
 
+#endregion
+
+#region locallization
+builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "");
+builder.Services.Configure<RequestLocalizationOptions>(option =>
+{
+	List<CultureInfo> SupportedCulture = new List<CultureInfo>()
+	{
+		new CultureInfo("en-US"),
+		
+		new CultureInfo("ar-EG"),
+	};
+	option.DefaultRequestCulture = new RequestCulture("ar-EG");
+	option.SupportedCultures = SupportedCulture;
+	option.SupportedUICultures = SupportedCulture;
+});
+#endregion
+
+
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

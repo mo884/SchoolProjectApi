@@ -61,21 +61,29 @@ namespace SchoolProject.Api.Controllers
 		[HttpPut(Router.StudentRouting.Edit)]
 		public async Task<IActionResult> EditStudent([FromBody] EditeStudentCommands student )
 		{
-			if (ModelState.IsValid)
+			try
 			{
-				var response = await mediator.Send(student);
-				return Ok(response);
+				if (ModelState.IsValid)
+				{
+					var response = await mediator.Send(student);
+					return Ok(response);
+
+				}
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(student);
 
 			}
-			else
-			{
-				return BadRequest();
-			}
+			return BadRequest(student);
+
+
+
 
 		}
 		#endregion
 		#region Edit Student 
-		[HttpPost(Router.StudentRouting.Delete)]
+		[HttpDelete(Router.StudentRouting.Delete)]
 		public async Task<IActionResult> DeleteStudent( int id)
 		{
 			if (ModelState.IsValid)
