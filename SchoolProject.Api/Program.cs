@@ -28,9 +28,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 
 #region Dependancy Injection
-builder.Services.AddInfrustructureDependencies();
-builder.Services.AddServiceDependencies();
-builder.Services.AddCoreDependencie();
+builder.Services
+	.AddInfrustructureDependencies()
+    .AddServiceDependencies()
+    .AddCoreDependencie()
+    .AddServiceRegistration();
 
 #endregion
 
@@ -42,7 +44,7 @@ builder.Services.Configure<RequestLocalizationOptions>(option =>
 	List<CultureInfo> SupportedCulture = new List<CultureInfo>()
 	{
 		new CultureInfo("en-US"),
-		
+
 		new CultureInfo("ar-EG"),
 	};
 	option.DefaultRequestCulture = new RequestCulture("ar-EG");
