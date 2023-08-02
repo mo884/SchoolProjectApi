@@ -33,10 +33,6 @@
     <Folder Include="Features\Departments\Commands\Handlers\" />
     <Folder Include="Features\Departments\Commands\Models\" />
     <Folder Include="Features\Departments\Commands\validations\" />
-    <Folder Include="Features\User\Quieries\Handlers\" />
-    <Folder Include="Features\User\Quieries\Models\" />
-    <Folder Include="Features\User\Quieries\Response\" />
-    <Folder Include="Mapping\Users\Queries\" />
   </ItemGroup>
 
 </Project>

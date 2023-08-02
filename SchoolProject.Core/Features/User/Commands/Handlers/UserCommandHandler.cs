@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
-using SchoolProject.Core.Bases;
+
 using SchoolProject.Core.Features.Users.Commands.Models;
 using SchoolProject.Core.SharedResource;
 using SchoolProject.Data.Entites.Identity;
@@ -17,14 +17,14 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
 
 		#region Fildes
 		private readonly IMapper mapper;
-		private readonly UserManager<User> _userManager;
+		private readonly UserManager<SchoolProject.Data.Entites.Identity.User> _userManager;
 		private readonly IStringLocalizer<SharedResources> stringLocalizer;
 
 		#endregion
 
 
 		#region Constructor
-		public UserCommandHandler(IMapper mapper, UserManager<User> user, IStringLocalizer<SharedResources> stringLocalizer)
+		public UserCommandHandler(IMapper mapper, UserManager<SchoolProject.Data.Entites.Identity.User> user, IStringLocalizer<SharedResources> stringLocalizer)
         {
             this.mapper = mapper;
 			this._userManager = user;
@@ -36,7 +36,7 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
         public async Task<Response<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
 		{
 			//mapping
-			var identityUser = mapper.Map<User>(request);
+			var identityUser = mapper.Map<SchoolProject.Data.Entites.Identity.User>(request);
 
 			//Check Email is Exist 
 			var user_Email_Is_Exist = await _userManager.FindByEmailAsync(request.Email);
