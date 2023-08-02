@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Students.Commands.Models;
 using SchoolProject.Core.Features.Students.Quieres.Models;
+using SchoolProject.Core.Features.User.Commands.Models;
 using SchoolProject.Core.Features.User.Quieries.Models;
 using SchoolProject.Core.Features.Users.Commands.Models;
 using SchoolProject.Data.AppMetaData;
@@ -24,6 +25,7 @@ namespace SchoolProject.Api.Controllers
 			this.mediator = mediator;
 		}
 		#endregion
+
 		#region Create Identity User 
 		[HttpPost(Router.UsertRouting.Create)]
 		public async Task<IActionResult> Registration([FromBody] AddUserCommand user)
@@ -51,10 +53,30 @@ namespace SchoolProject.Api.Controllers
 		}
 		#endregion
 
+		#region Get Identity User By Id 
 		[HttpGet(Router.UsertRouting.GetById)]
 		public async Task<IActionResult> GetStudentByID([FromRoute] int id)
 		{
 			return Ok(await mediator.Send(new GetUserByIdQuery(id)));
 		}
+		#endregion
+
+		#region Get Identity User By Id 
+		[HttpPut(Router.UsertRouting.Edit)]
+		public async Task<IActionResult> Edit([FromBody] EditUserCommand command)
+		{
+			var response = await mediator.Send(command);
+			return Ok(response);
+		}
+
+		#endregion
+		#region Delete Identity User 
+		[HttpDelete(Router.UsertRouting.Delete)]
+		public async Task<IActionResult> Delete( int id)
+		{
+			return Ok(await mediator.Send(new DeleteUserCommand(id)));
+		}
+		#endregion
+
 	}
 }

@@ -2,9 +2,10 @@
 using MediatR;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
-
+using SchoolProject.Core.Features.User.Commands.Models;
 using SchoolProject.Core.Features.Users.Commands.Models;
 using SchoolProject.Core.SharedResource;
 using SchoolProject.Data.Entites.Identity;
@@ -12,7 +13,9 @@ using SchoolProject.Data.Entites.Identity;
 namespace SchoolProject.Core.Features.Users.Commands.Handlers
 {
 	public class UserCommandHandler : ResponseHandler,
-		IRequestHandler<AddUserCommand, Response<string>>
+		IRequestHandler<AddUserCommand, Response<string>>,
+		IRequestHandler<EditUserCommand, Response<string>>,
+		IRequestHandler<DeleteUserCommand, Response<string>>
 	{
 
 		#region Fildes
@@ -51,6 +54,42 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
 			//Create Sucess
 			return Success<string>(stringLocalizer[SharedResourceKey.RegistrationSuccessed]);
 		}
+
+		public async Task<Response<string>> Handle(EditUserCommand request, CancellationToken cancellationToken)
+		{
+			//check if user is exist
+			var oldUser = await _userManager.FindByIdAsync(request.Id.ToString());
+			//if Not Exist notfound
+			if (oldUser == null) return NotFound<string>();
+			//mapping
+			var newUser = mapper.Map(request, oldUser);
+
+			//if username is Exist
+			var userByUserName = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == newUser.UserName && x.Id != newUser.Id);
+			//username is Exist
+			if (userByUserName != null) return BadRequest<string>(stringLocalizer[SharedResourceKey.EmailIsExist]);
+
+			//update
+			var result = await _userManager.UpdateAsync(newUser);
+			//result is not success
+			if (!result.Succeeded) return BadRequest<string>("Not Updated");
+			//message
+			return Success("Updated");
+		}
+
+		public async Task<Response<string>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+		{
+			//check if user is exist
+			var user = await _userManager.FindByIdAsync(request.Id.ToString());
+			//if Not Exist notfound
+			if (user == null) return NotFound<string>();
+			//Delete the User
+			var result = await _userManager.DeleteAsync(user);
+			//in case of Failure
+			if (!result.Succeeded) return BadRequest<string>("Delete Faild");
+			return Success("IS Deleted");
+		}
+	
 		#endregion
 	}
 }
