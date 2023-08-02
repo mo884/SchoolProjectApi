@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using SchoolProject.Core.Features.Students.Commands.Models;
-using SchoolProject.Core.Features.User.Commands.Models;
+using SchoolProject.Core.Features.Users.Commands.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

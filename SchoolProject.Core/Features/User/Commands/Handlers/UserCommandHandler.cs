@@ -44,9 +44,9 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
 			if (user_Email_Is_Exist is not null)
 				return BadRequest<string>(stringLocalizer[SharedResourceKey.EmailIsExist]);
 			//Creat
-			var createResult = await _userManager.CreateAsync(identityUser,request.Password)
-			//Create Field
-			if(!createResult.Succeeded)
+			var createResult = await _userManager.CreateAsync(identityUser, request.Password);
+			//Create Not Sucess
+			if (!createResult.Succeeded)
 				return BadRequest<string>(stringLocalizer[SharedResourceKey.RegistrationNotSuccessed]);
 			//Create Sucess
 			return Success<string>(stringLocalizer[SharedResourceKey.RegistrationSuccessed]);
