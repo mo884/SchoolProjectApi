@@ -12,7 +12,8 @@ namespace SchoolProject.Core.Features.Users.Quieries.Handlers
 {
 	public class UserQueriesHandlers : ResponseHandler
 
-		, IRequestHandler<GetListUserQuerey, Response<List<GetListUserResponse>>>
+		, IRequestHandler<GetListUserQuerey, Response<List<GetListUserResponse>>>,
+		 IRequestHandler<GetUserByIdQuery, Response<GetUserByIdResponse>>
 	{
 		#region Fieldes
 		private readonly UserManager<SchoolProject.Data.Entites.Identity.User> user;
@@ -36,6 +37,14 @@ namespace SchoolProject.Core.Features.Users.Quieries.Handlers
 			var UserMapping = mapper.Map<List<GetListUserResponse>>(users);
 
 			return Success( UserMapping);
+		}
+
+		public async Task<Response<GetUserByIdResponse>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+		{
+			var UserIdentity = await user.FindByIdAsync(request.Id.ToString());
+			if (UserIdentity == null) return NotFound<GetUserByIdResponse>("User Not Found");
+			var result = mapper.Map<GetUserByIdResponse>(UserIdentity);
+			return Success(result);
 		}
 		#endregion
 	}

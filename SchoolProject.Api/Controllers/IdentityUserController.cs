@@ -50,5 +50,11 @@ namespace SchoolProject.Api.Controllers
 			return Ok(response);
 		}
 		#endregion
+
+		[HttpGet(Router.UsertRouting.GetById)]
+		public async Task<IActionResult> GetStudentByID([FromRoute] int id)
+		{
+			return Ok(await mediator.Send(new GetUserByIdQuery(id)));
+		}
 	}
 }
