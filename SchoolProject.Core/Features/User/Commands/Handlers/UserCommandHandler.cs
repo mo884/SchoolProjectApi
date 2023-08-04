@@ -15,7 +15,8 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
 	public class UserCommandHandler : ResponseHandler,
 		IRequestHandler<AddUserCommand, Response<string>>,
 		IRequestHandler<EditUserCommand, Response<string>>,
-		IRequestHandler<DeleteUserCommand, Response<string>>
+		IRequestHandler<DeleteUserCommand, Response<string>>,
+		IRequestHandler<ChangeUserPasswordCommand, Response<string>>
 	{
 
 		#region Fildes
@@ -89,7 +90,26 @@ namespace SchoolProject.Core.Features.Users.Commands.Handlers
 			if (!result.Succeeded) return BadRequest<string>("Delete Faild");
 			return Success("IS Deleted");
 		}
-	
+
+		public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+		{
+			//get user
+			//check if user is exist
+			var User = await _userManager.FindByIdAsync(request.Id.ToString());
+			//if Not Exist notfound
+			if (User == null) return NotFound<string>();
+
+			//Change User Password
+			var result = await _userManager.ChangePasswordAsync(User, request.CurrentPassword, request.NewPassword);
+			//var user1=await _userManager.HasPasswordAsync(user);
+			//await _userManager.RemovePasswordAsync(user);
+			//await _userManager.AddPasswordAsync(user, request.NewPassword);
+
+			//result
+			if (!result.Succeeded) return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+			return Success("Change Passward Done '_' ");
+		}
+
 		#endregion
 	}
 }

@@ -39,6 +39,7 @@ namespace SchoolProject.Data.AppMetaData
 			public const string Create = perfix + "/Create";
 			public const string Edit = perfix + "/Edit";
 			public const string Delete = perfix + "/Delete";
+			public const string ChangePassword = perfix + "/ChangePassword";
 		}
 	}
 }

@@ -61,7 +61,7 @@ namespace SchoolProject.Api.Controllers
 		}
 		#endregion
 
-		#region Get Identity User By Id 
+		#region Edite Identity User By Id 
 		[HttpPut(Router.UsertRouting.Edit)]
 		public async Task<IActionResult> Edit([FromBody] EditUserCommand command)
 		{
@@ -70,11 +70,22 @@ namespace SchoolProject.Api.Controllers
 		}
 
 		#endregion
+
 		#region Delete Identity User 
 		[HttpDelete(Router.UsertRouting.Delete)]
 		public async Task<IActionResult> Delete( int id)
 		{
 			return Ok(await mediator.Send(new DeleteUserCommand(id)));
+		}
+		#endregion
+
+		#region Delete Identity User 
+
+		[HttpPut(Router.UsertRouting.ChangePassword)]
+		public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
+		{
+			var response = await mediator.Send(command);
+			return Ok(response);
 		}
 		#endregion
 
