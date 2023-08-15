@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Departments\Commands\**" />
+    <EmbeddedResource Remove="Features\Departments\Commands\**" />
+    <None Remove="Features\Departments\Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SchoolProject.Data\SchoolProject.Data.csproj" />
     <ProjectReference Include="..\SchoolProject.Infrustructure\SchoolProject.Infrustructure.csproj" />
     <ProjectReference Include="..\SchoolProject.Service\SchoolProject.Service.csproj" />
@@ -27,12 +33,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedResources.AR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Departments\Commands\Handlers\" />
-    <Folder Include="Features\Departments\Commands\Models\" />
-    <Folder Include="Features\Departments\Commands\validations\" />
   </ItemGroup>
 
 </Project>
